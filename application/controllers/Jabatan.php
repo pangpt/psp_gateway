@@ -34,4 +34,32 @@ class Jabatan extends CI_Controller {
             $this->index();
         }
     }
+
+    function edit_jabatan($id)
+    {
+        $this->load->model('M_jabatan');
+
+        $data['jbt'] = $this->M_jabatan->get_id_jabatan($id);
+        // var_dump($data['jbt']->nama_jabatan);
+        if ($data['jbt']) {
+            $data['jabatan'] = $this->M_jabatan->get_jabatan();
+            $this->template->load('backend/template', '/backend/jabatan/edit_jabatan', $data);
+        } else {
+            // var_dump($data['jbt']->nama_jabatan);
+            $this->session->set_flashdata('message', '<div class="alert alert-danger">Data tidak ada bro</div>');
+            redirect('jabatan');
+        }
+    }
+
+    function update_jabatan()
+    {
+        $this->load->model('M_jabatan');
+        $data = [
+            'nama_jabatan' => $this->input->post('nama_jabatan')
+        ];
+
+        $this->M_jabatan->update($this->input->post('id'), $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success">Data berhasil diubah</div>');
+            redirect('jabatan', 'refresh');
+    }
 }

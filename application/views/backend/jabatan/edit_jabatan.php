@@ -28,11 +28,12 @@
                     
                     <div class="card-body">
                     <?= $this->session->flashdata('message'); ?>
-                    <?= validation_errors() ?>
-                        <form action="<?= base_url('jabatan/add_jabatan')?>" method="POST">
+                    <?= validation_errors() ?>   
+                        <form action="<?= base_url('jabatan/update_jabatan')?>" method="POST">
                             <div class="form-group">
                                 <label for=""> Jabatan </label>
-                                <input type="text" name="nama_jabatan" class="form-control">
+                                <input type="hidden" name="id" class="form-control" value="<?= $jbt->id ?>">
+                                <input type="text" name="nama_jabatan" class="form-control" value="<?= $jbt->nama_jabatan ?>">
                             </div>
 
                             <button type="sumbit" class="btn btn-primary btn-sm"> Save </button>
